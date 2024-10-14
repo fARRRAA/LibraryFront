@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom'
 import './Header.css'
+import { useAuth } from '../../hooks/useAuth';
+
 export function Header() {
+    const currentUser = useAuth();
+
     return (
         <>
             <div className="header">
@@ -21,6 +25,7 @@ export function Header() {
                     <Link>
                     <p className="nav_item">Зарегистрироваться</p>
                     </Link>
+                    <p className="nav_item">{currentUser.id&&currentUser.id}</p>
                 </nav>
             </div>
         </>

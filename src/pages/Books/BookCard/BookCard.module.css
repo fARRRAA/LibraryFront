@@ -1,29 +1,30 @@
-.book_card {
+.card {
     display: flex;
     flex-direction: column;
     padding: 15px 20px;
     border: 2px solid #0B6BCB;
     border-radius: 15px;
     min-width: 300px;
+    max-width: 300px;
 }
-.book_title {
+.title {
     font-size: 20px;
     margin-bottom: 15px;
     font-family: "Oswald", sans-serif;
 }
-.book_author {
+.author {
     font-size: 18px;
     color: #0B6BCB;
     
 }
-.book_genre {
+.genre {
     margin-top: 10px;
 
 }
-.book_description {
+.description {
     margin-top: 10px;
 }
-.book_date {
+.date {
     margin-top: 10px;
     color: rgb(173, 173, 173);
 }
