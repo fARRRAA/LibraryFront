@@ -1,10 +1,15 @@
 import { Link } from 'react-router-dom'
 import './Header.css'
 import { useAuth } from '../../hooks/useAuth';
-
+import { removeUser } from '../../store/slices/userSlice';
+import { useDispatch } from 'react-redux';
 export function Header() {
     const currentUser = useAuth();
+    const dispatch = useDispatch();
 
+    const LogOut=()=>{
+        dispatch(removeUser())
+    }
     return (
         <>
             <div className="header">
@@ -16,14 +21,14 @@ export function Header() {
                     <Link to='/books'>
                     <p className="nav_item">Книги</p>
                     </Link>
-                    <Link>
+                    <Link to={currentUser.id? '/profile' : 'login'}>
                     <p className="nav_item">Профиль</p>
                     </Link>
-                    <Link to="/login">
-                    <p className="nav_item">Войти</p>
+                    <Link to={!currentUser.id&& '/login'}>
+                    <p className="nav_item" onClick={currentUser.id&&LogOut}>{currentUser.id?'Выйти':'Войти'}</p>
                     </Link>
-                    <Link>
-                    <p className="nav_item">Зарегистрироваться</p>
+                    <Link to={!currentUser.id?'/signup':'/admin'}>
+                    <p className="nav_item">{currentUser.id? 'Админ панель':'Зарегистрироваться'}</p>
                     </Link>
                     <p className="nav_item">{currentUser.id&&currentUser.id}</p>
                 </nav>

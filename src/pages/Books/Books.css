@@ -105,3 +105,24 @@
 .filter_btn {
     width: 310px;
 }
+.pagination {
+    margin-top: 30px;
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.pagination_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.pagination_elem {
+    padding:10px 15px;
+    background-color: #0B6BCB;
+    color: white;
+    cursor: pointer;
+}
