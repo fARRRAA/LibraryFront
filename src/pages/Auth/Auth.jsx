@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { setUser } from '../../store/slices/userSlice';
 import { useDispatch } from 'react-redux';
 import { useAuth } from '../../hooks/useAuth';
-import { messageError, messageSuccess } from '../Register/messages';
-import { ToastContainer } from "react-toastify";
+import { messageError, messageSuccess } from '../../messages.js';
+import { ToastContainer,toast } from "react-toastify";
 
 
 export function Login() {
@@ -23,6 +23,36 @@ export function Login() {
             navigate("/");
         }
     }, [])
+    const messageError = (error) => {
+        toast.error(error, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            // pauseOnHover: true,
+            draggable: true
+        });
+    };
+    const messageWarning = (error) => {
+        toast.warning(error, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            // pauseOnHover: true,
+            draggable: true
+        });
+    };
+    const messageSuccess = (error) => {
+        toast.success(error, {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            // pauseOnHover: true,
+            draggable: true
+        });
+    };
     async function Login(e) {
         e.preventDefault();
         if (login.length < 1 || password.length < 1) {
@@ -42,8 +72,8 @@ export function Login() {
             navigate("/");
         }
         else {
-            let  data  = await request.json();
-            let {error} = data;
+            let data = await request.json();
+            let { error } = data;
             messageError(error.value);
         }
     }

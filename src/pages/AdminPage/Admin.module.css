@@ -1,40 +1,52 @@
-.card {
+.admin_panel {
+    display: flex;
+    margin-top: 80px;
+    flex-direction: column;
+}
+.admin_title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 400;
+}
+.admin_wrapper {
+    margin-top: 80px;
+}
+.tabs_books {
     display: flex;
     flex-direction: column;
-    padding: 15px 20px;
-    border: 2px solid #0B6BCB;
-    border-radius: 15px;
-    min-width: 300px;
-    max-width: 300px;
-    color: #32383e;
-    
+    align-items: start;
 }
-.title {
-    font-size: 20px;
+.books_title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 400;
     margin-bottom: 15px;
-    font-family: "Oswald", sans-serif;
 }
-.author {
-    font-size: 18px;
-    color: #0B6BCB;
-    
-}
-.genre {
-    margin-top: 10px;
+.allbooks_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
 
 }
-.description {
-    margin-top: 10px;
-}
-.date {
-    margin-top: 10px;
-    color: rgb(173, 173, 173);
-}
-.admin_btns {
-    margin-top: 15px;
+.pagination {
+    margin-top: 30px;
+    margin-bottom: 100px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
+
+}
+.pagination_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.pagination_elem {
+    padding:7px 10px;
+    background-color: #0B6BCB;
+    color: white;
     cursor: pointer;
 }
 .add_book {

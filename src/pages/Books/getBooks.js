@@ -14,7 +14,7 @@ export async function getBooks(page, pageSize) {
     return []; 
 }
 
-async function getAllBooks() {
+export async function getAllBooks() {
     let response = await fetch(`https://localhost:7000/api/Books/getAllBooks`, {
         method: "GET",
         headers: {
@@ -24,9 +24,9 @@ async function getAllBooks() {
     
     if (response.status >= 200 && response.status <= 300) {
         let data = await response.json();
-        return data.books.length;
+        return data.books;
     }
-    return 0; 
+    return []; 
 }
-
-export const booksCount = await getAllBooks();
+let count = await getAllBooks();
+export const booksCount = count.length;

@@ -8,8 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useAuth } from '../../hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from "react-toastify";
-import { messageError, messageSuccess } from './messages.js';
-export { messageSuccess, messageError, messageWarning } from './messages.js'
+export { messageSuccess, messageError, messageWarning } from '../../messages.js'
 import 'react-toastify/dist/ReactToastify.css';
 
 export function Register() {
@@ -28,7 +27,36 @@ export function Register() {
         password: '',
         dateBirth: new Date()
     })
-
+    const messageError = (error) => {
+        toast.error(error, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            // pauseOnHover: true,
+            draggable: true
+        });
+    };
+    const messageWarning = (error) => {
+        toast.warning(error, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            // pauseOnHover: true,
+            draggable: true
+        });
+    };
+    const messageSuccess = (error) => {
+        toast.success(error, {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            // pauseOnHover: true,
+            draggable: true
+        });
+    };
     const dataUpdate = (e) => { setData({ ...data, [e.target.name]: e.target.value }) };
 
     async function Register(e) {
@@ -39,7 +67,6 @@ export function Register() {
         if (new Date(data.dateBirth).getFullYear() == 0) {
             return messageError("fill normal date");
         }
-
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'https://localhost:7000/registerReader', true);
         xhr.setRequestHeader('Content-Type', 'application/json');

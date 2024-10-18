@@ -4,7 +4,7 @@ import { Button, CircularProgress, CssVarsProvider, Input, Option, Select, selec
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import { BookCard } from './BookCard/BookCard';
 import { getGenres } from './getGenres';
-import { getBooks, booksCount } from './getBooks';
+import { getBooks, booksCount,getAllBooks } from './getBooks';
 export function Books() {
     const [books, setBooks] = useState();
     const [error, setError] = useState();
@@ -33,21 +33,27 @@ export function Books() {
         let data = await responce.json();
         setBooks(data.books);
     }
-    async function Search() {
-        let responce = await fetch(`https://localhost:7000/api/Books/getBooksByName/${nameSelect}`);
+    async function Search(page,Size) {
+        let responce = await fetch(`https://localhost:7000/api/Books/getBooksByName/${nameSelect}?page=${page}&pageSize=${Size}`);
         let data = await responce.json();
         setBooks(data.books);
         setSearched(!searched);
     }
-    function booksChange() {
+    async function booksChange() {
         setSearched(!searched);
-        let books = getBooks();
+        // let books = await getAllBooks();
+        // setBooks(books);
+        let books = await getBooks(page, pageSize);
         setBooks(books);
         setNameSelect('');
     }
     async function changePage(page) {
         let books = await getBooks(page, pageSize);
         setBooks(books);
+    }
+    function changePageSearched(page){
+        
+        let newBooks = books.slice(0,pageSize);
     }
     useEffect(() => {
         async function GetBooks() {
@@ -81,10 +87,10 @@ export function Books() {
                             <Input value={nameSelect} variant='soft' placeholder='Поиск' onChange={(e) => setNameSelect(e.target.value)} color="neutral" />
                         </CssVarsProvider>
                         <CssVarsProvider>
-                            <Button variant='soft' onClick={Search}>Поиск</Button>
+                            <Button variant='soft' onClick={Search(1,4)}>Поиск</Button>
                         </CssVarsProvider>
                         {
-                            searched &&
+                           
                             <CssVarsProvider>
                                 <Button variant='solid' onClick={booksChange}>Отменить поиск</Button>
                             </CssVarsProvider>
@@ -108,7 +114,7 @@ export function Books() {
                                     <Option value='Выберите категорию...' onClick={() => { setGenreSelect('') }}>Выберите категорию...</Option>
                                     {
                                         genres && genres.map(genre => {
-                                            return <Option value={(genre)} onClick={() => { setGenreSelect(genre) }}>{genre}</Option>
+                                            return <Option value={genre} onClick={() => { setGenreSelect(genre) }}>{genre}</Option>
                                         })
                                     }
                                 </Select>
@@ -118,7 +124,7 @@ export function Books() {
                                     <Option value='Выберите автора...' onClick={() => { setGenreSelect('') }}>Выберите автора...</Option>
                                     {
                                         authors && authors.map(author => {
-                                            return <Option value={(author)} onClick={() => { setAuthorSelectSelect(author) }}>{author}</Option>
+                                            return <Option value={author} onClick={() => { setAuthorSelect(author) }}>{author}</Option>
                                         })
                                     }
                                 </Select>
@@ -128,7 +134,7 @@ export function Books() {
                                     <Option value='Выберите год...' onClick={() => { setYearSelectelect('') }}>Выберите год...</Option>
                                     {
                                         years && years.sort((a, b) => a - b).map(year => {
-                                            return <Option value={(year)} onClick={() => { setYearsSelectSelect(year) }}>{year}</Option>
+                                            return <Option value={(year)} onClick={() => { setYearSelect(year) }}>{year}</Option>
                                         })
                                     }
                                 </Select>
@@ -146,7 +152,7 @@ export function Books() {
                             {
                                 books ? books.map(book => {
                                     return (
-                                        <BookCard {...book} key={book.id_Book} />
+                                        <BookCard book={book} key={book.id_Book} />
                                     )
                                 })
                                     :
@@ -164,9 +170,9 @@ export function Books() {
                 <div className="pagination">
                     <div className="pagination_wrapper">
                         {
-                            allPagesArray.map(i => {
+                           allPagesArray.map(i => {
                                 return (
-                                    <div className="pagination_elem" onClick={() => changePage(i)}>{i}</div>
+                                    <div className="pagination_elem" onClick={() =>!searched? changePage(i): Search(i,4)}>{i}</div>
 
                                 )
                             }

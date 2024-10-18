@@ -7,6 +7,7 @@ import { Header } from './components/Header/Header';
 import { Books } from './pages/Books/Books';
 import { Main } from './pages/Main/Main';
 import { Register } from './pages/Register/Register';
+import { Admin } from './pages/AdminPage/Admin';
 
 export function App() {
 
@@ -20,6 +21,7 @@ export function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/books' element={<Books/>}/>
             <Route path='/signup' element={<Register/>}/>
+            <Route path="/admin" element={<Admin/>}/>
           </Routes>
         </body>
       </div>
